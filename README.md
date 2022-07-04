@@ -1,4 +1,4 @@
-# vue3 + webpack + vuetify ģ��
+# vue3 + webpack + vuetify 空白模板
 
 vue3
 https://v3.cn.vuejs.org/
