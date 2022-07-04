@@ -5,31 +5,47 @@ const { VueLoaderPlugin } = require('vue-loader')
 const { VuetifyPlugin } = require('webpack-plugin-vuetify')
 
 module.exports = [
-    // electron ÷˜œﬂ≥Ã ------------- start
+    // electron ‰∏ªÁ∫øÁ®ã ------------- start
     {
         mode: 'development',
         target: 'electron-main',
-        entry: './src/electron/main.ts',
+        /*entry: './src/electron/main.ts',*/
+        entry: {
+            main: './src/electron/main.ts',
+            preload: './src/electron/preload.ts',
+            //renderer: './src/electron/renderer.ts',
+        },
         output: {
             path: path.resolve(__dirname, 'dist/electron'),
-            filename: '[name].bundle.js',
+            filename: '[name].js',
             clean: true,
         },
+        module: {
+            rules: [
+                {
+                    test: /\.tsx?$/,
+                    loader: 'ts-loader',
+                },
+            ]
+        }
     },
-    // electron ÷˜œﬂ≥Ã ------------- end
+    // electron ‰∏ªÁ∫øÁ®ã ------------- end
 
-    // web “≥√Ê ------------- start
+    // web È°µÈù¢ ------------- start
     {
-
         mode: 'development',
         target: 'web',
         entry: './src/vue/main.ts',
         output: {
             path: path.resolve(__dirname, 'dist/web'),
             filename: '[name].bundle.js',
+            /*publicPath: "./dist/web",*/
             clean: true,
         },
         devtool: 'inline-source-map',
+        devServer: {
+            static: "./dist"
+        },
         optimization: {
             //moduleIds: 'deterministic',
             //runtimeChunk: 'single',
@@ -91,5 +107,5 @@ module.exports = [
             new VuetifyPlugin()
         ]
     }
-    // web “≥√Ê ------------- end
+    // web È°µÈù¢ ------------- end
 ];
